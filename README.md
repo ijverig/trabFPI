@@ -1,5 +1,6 @@
 Running on macOS
 ================
 
-1. `gcc -std=c99 -o build/fotoxope src/fotoxope.c`
-2. `build/fotoxope test/Underwater_53k.jpg output_image.jpg`
+1. `make clean`
+2. `make`
+3. `make test`
