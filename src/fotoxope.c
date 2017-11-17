@@ -1,43 +1,30 @@
 #include <stdio.h>
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "../lib/stb_image.h"
-#define STB_IMAGE_WRITE_IMPLEMENTATION
-#include "../lib/stb_image_write.h"
-
-#define R 0
-#define G 1
-#define B 2
-
-typedef unsigned char byte;
+#include "image.h"
 
 int main(int argc, char const *argv[]) {
-    int image_width, image_height;
-    int pixels_in_image, channels_per_pixel = 3;
+    image_t image = image_create_from_file(argv[1]);
+    image_t image_buffer = image_create_from_image(image);
 
-    printf("in: %s \n", argv[1]);
-    byte *image_data = stbi_load(argv[1], &image_width, &image_height, NULL, STBI_rgb);
-    pixels_in_image = image_width * image_height;
+    // alias to list of [width][channel] arrays (scanlines)
+    byte (*img)[image.width][image.depth] = (byte (*)[image.width][image.depth]) image.data;
+    byte (*img_buffer)[image.width][image.depth] = (byte (*)[image.width][image.depth]) image_buffer.data;
 
-    byte *image_data_copy = malloc(image_height * image_width * channels_per_pixel);
-
-    // alias to list of [image_width][channel] arrays (scanlines)
-    byte (*image)[image_width][channels_per_pixel] = (byte (*)[image_width][channels_per_pixel]) image_data;
-    byte (*image_copy)[image_width][channels_per_pixel] = (byte (*)[image_width][channels_per_pixel]) image_data_copy;
-
-    for (int row = 0, last_pixel = image_width - 1; row < image_height; row++) {
-        for (int col = 0; col < image_width; col++) {
-            image_copy[row][col][R] = image[row][last_pixel - col][R];
-            image_copy[row][col][G] = image[row][last_pixel - col][G];
-            image_copy[row][col][B] = image[row][last_pixel - col][B];
+    for (int row = 0, last_pixel = image.width - 1; row < image.height; row++) {
+        for (int col = 0; col < image.width; col++) {
+            img_buffer[row][col][R] = img[row][last_pixel - col][R];
+            img_buffer[row][col][G] = img[row][last_pixel - col][G];
+            img_buffer[row][col][B] = img[row][last_pixel - col][B];
         }
     }
 
-    printf("out: %s \n", argv[2]);
-    stbi_write_jpg(argv[2], image_width, image_height, STBI_rgb, image_data_copy, 90);
+    image_save(image_buffer, "build/output_vflipped.jpg");
 
-    printf("      \n");
-    printf("done… \n");
-    stbi_image_free(image_data);
-    free(image_data_copy);
+    image_destroy(image);
+    image_destroy(image_buffer);
+
+    printf("in: %s  \n", argv[1]);
+    printf("out: %s \n", argv[2]);
+    printf("        \n");
+    printf("done…   \n");
 }

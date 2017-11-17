@@ -1,6 +1,6 @@
-build/fotoxope: src/fotoxope.c
+build/fotoxope: src/fotoxope.c src/image.c
 	mkdir -p build
-	gcc -std=c99 -Wall -Wno-deprecated-declarations -o build/fotoxope src/fotoxope.c
+	gcc -std=c99 -Wall -Wno-deprecated-declarations -o build/fotoxope src/fotoxope.c src/image.c
 
 .PHONY: clean test
 clean:

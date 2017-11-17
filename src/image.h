@@ -1,0 +1,30 @@
+#ifndef IMAGE_H
+#define IMAGE_H
+
+// alias to list of [width][depth] arrays (scanlines)
+#define DATA_AS_3D_MATRIX(i, m) byte (*m)[i->width][i->depth] = (byte (*)[i->width][i->depth])
+#define IMAGE_DATA_AS_3D_MATRIX(i, m) DATA_AS_3D_MATRIX(i, m) i->data
+
+typedef unsigned char byte;
+typedef struct image image_t;
+
+enum PIXEL_CHANNEL
+{
+  // GrayPixelChannel = 0,
+  R = 0,
+  G = 1,
+  B = 2,
+  // AlphaPixelChannel = 3,
+};
+
+struct image {
+    int width, height, depth, size;
+    byte *data;
+};
+
+void image_save(image_t image, const char *filename);
+image_t image_create_from_file(const char *filename);
+image_t image_create_from_image(image_t image);
+void image_destroy(image_t image);
+
+#endif
