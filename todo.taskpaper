@@ -2,7 +2,7 @@ v1:
 	- image file I/O @done(2017-11-13)
 	- transformations
 		- horizontal flipping @done(2017-11-16)
-			- extract as transformation
+			- extract as transformation @done(2017-11-18)
 		- vertical flipping
 			- optimize with memcpy
 	- filters

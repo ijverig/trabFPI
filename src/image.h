@@ -2,8 +2,8 @@
 #define IMAGE_H
 
 // alias to list of [width][depth] arrays (scanlines)
-#define DATA_AS_3D_MATRIX(i, m) byte (*m)[i->width][i->depth] = (byte (*)[i->width][i->depth])
-#define IMAGE_DATA_AS_3D_MATRIX(i, m) DATA_AS_3D_MATRIX(i, m) i->data
+#define DATA_AS_3D_MATRIX(m, i, d) byte (*m)[i->width][i->depth] = (byte (*)[i->width][i->depth]) (d)
+#define IMAGE_DATA_AS_3D_MATRIX(m, i) DATA_AS_3D_MATRIX(m, i, i->data)
 
 typedef unsigned char byte;
 typedef struct image image_t;
