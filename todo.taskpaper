@@ -1,8 +1,11 @@
 v1:
 	- image file I/O @done(2017-11-13)
-	- filters
+	- transformations
 		- horizontal flipping @done(2017-11-16)
+			- extract as transformation
 		- vertical flipping
+			- optimize with memcpy
+	- filters
 		- grayscale conversion
 		- quantization
 	- GUI
@@ -18,20 +21,21 @@ v2:
 		- brightness
 		- contrast
 		- negative
-	- histogram equalization
-		- through luminance
-		- through L*a*b
-	- histogram matching
+		- histogram equalization
+			- through luminance
+			- through L*a*b
+		- histogram matching
 v3:
-	- zooming
-		- out
-		- in
-	- rotation
-		- clockwise
-		- counterclockwise
-	- convolution
+	- transformations
+		- zooming
+			- out
+			- in
+		- rotation
+			- clockwise
+			- counterclockwise
+	- convolution filters
 		- 3x3 arbitrary kernel
 		- popular kernels
 v4:
-	- handle bad allocations, missing files (NULL, stbi_failure_reason(), STBI_FAILURE_USERMSG)
+	- handle bad allocations, missing files (NULL,  *_destroy(NULL), stbi_failure_reason(), STBI_FAILURE_USERMSG)
 	- histogram for color
