@@ -1,10 +1,10 @@
 v1:
 	- image file I/O @done(2017-11-13)
-	- transformations
+	- transformations @done(2017-11-20)
 		- horizontal flipping @done(2017-11-16)
 			- extract as transformation @done(2017-11-18)
 		- vertical flipping @done(2017-11-19)
-			- optimize with memcpy
+			- optimize with memcpy @done(2017-11-20)
 	- filters
 		- grayscale conversion
 		- quantization
