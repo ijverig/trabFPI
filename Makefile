@@ -9,7 +9,7 @@ endif
 
 build/fotoxope: src/fotoxope.c src/image.c src/transformations.c
 	mkdir -p build
-	$(CC) $(CFLAGS) -o build/fotoxope src/fotoxope.c src/image.c src/transformations.c
+	$(CC) $(CFLAGS) -o build/fotoxope src/fotoxope.c src/image.c src/transformations.c src/filters.c
 
 .PHONY: clean run
 clean:

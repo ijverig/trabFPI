@@ -6,7 +6,7 @@ v1:
 		- vertical flipping @done(2017-11-19)
 			- optimize with memcpy @done(2017-11-20)
 	- filters
-		- grayscale conversion
+		- grayscale conversion @done(2017-11-20)
 		- quantization
 	- GUI
 		- display image
