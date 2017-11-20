@@ -3,7 +3,7 @@ v1:
 	- transformations
 		- horizontal flipping @done(2017-11-16)
 			- extract as transformation @done(2017-11-18)
-		- vertical flipping
+		- vertical flipping @done(2017-11-19)
 			- optimize with memcpy
 	- filters
 		- grayscale conversion
