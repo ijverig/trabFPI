@@ -1,6 +1,15 @@
+OS := $(shell uname)
+
+CC     = cc
+DBG    = lldb
+CFLAGS = -std=c99 -g -Wall -Wno-deprecated-declarations
+ifeq ($(OS), Linux)
+	DBG = gdb
+endif
+
 build/fotoxope: src/fotoxope.c src/image.c src/transformations.c
 	mkdir -p build
-	gcc -std=c99 -g -Wall -Wno-deprecated-declarations -o build/fotoxope src/fotoxope.c src/image.c src/transformations.c
+	$(CC) $(CFLAGS) -o build/fotoxope src/fotoxope.c src/image.c src/transformations.c
 
 .PHONY: clean run
 clean:
@@ -14,4 +23,4 @@ test: build/fotoxope
 	ls -1 test/ | sed 's/.jpg*//' | sed 's/.*/build\/fotoxope test\/&.jpg sandbox\/&.output.jpg/' | sh
 
 debug: build/fotoxope
-	lldb build/fotoxope test/Underwater_53k.jpg build/output_image.jpg
+	$(DBG) build/fotoxope test/Underwater_53k.jpg build/output_image.jpg
