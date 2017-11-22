@@ -10,7 +10,8 @@ int main(int argc, char const *argv[]) {
 
     // transform_flip_h(&image_buffer);
     // transform_flip_v(&image_buffer);
-    filter_grayscale(&image_buffer);
+    // filter_grayscale(&image_buffer);
+    filter_quantize(&image_buffer, 8);
 
     image_save(image_buffer, argv[2]);
 

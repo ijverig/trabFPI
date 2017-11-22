@@ -8,7 +8,7 @@
 #include "../lib/stb_image_write.h"
 
 void image_save(image_t image, const char *filename) {
-    stbi_write_jpg(filename, image.width, image.height, STBI_rgb, image.data, 90);
+    stbi_write_jpg(filename, image.width, image.height, STBI_rgb, image.data, 100);
 }
 
 image_t image_create_from_file(const char *filename) {

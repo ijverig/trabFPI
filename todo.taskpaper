@@ -5,9 +5,9 @@ v1:
 			- extract as transformation @done(2017-11-18)
 		- vertical flipping @done(2017-11-19)
 			- optimize with memcpy @done(2017-11-20)
-	- filters
+	- filters @done(2017-11-21)
 		- grayscale conversion @done(2017-11-20)
-		- quantization
+		- quantization @done(2017-11-21)
 	- GUI
 		- display image
 		- display source image and editing buffer
