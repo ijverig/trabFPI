@@ -1,5 +1,5 @@
-#ifndef IMAGE_H
-#define IMAGE_H
+#ifndef IMAGE_HEADER
+#define IMAGE_HEADER
 
 // alias to list of [width][depth] arrays (scanlines)
 #define DATA_AS_3D_MATRIX(m, i, d) byte (*m)[i->width][i->depth] = (byte (*)[i->width][i->depth]) (d)
@@ -17,7 +17,8 @@ enum PIXEL_CHANNEL
   // AlphaPixelChannel = 3,
 };
 
-struct image {
+struct image
+{
     int width, height, depth, size;
     byte *data;
 };
@@ -26,5 +27,8 @@ void image_save(image_t image, const char *filename);
 image_t image_create_from_file(const char *filename);
 image_t image_create_from_image(image_t image);
 void image_destroy(image_t image);
+
+#include "transformations.h"
+#include "filters.h"
 
 #endif

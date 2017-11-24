@@ -7,11 +7,13 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "../lib/stb_image_write.h"
 
-void image_save(image_t image, const char *filename) {
+void image_save(image_t image, const char *filename)
+{
     stbi_write_jpg(filename, image.width, image.height, STBI_rgb, image.data, 100);
 }
 
-image_t image_create_from_file(const char *filename) {
+image_t image_create_from_file(const char *filename)
+{
     image_t image;
 
     image.data = stbi_load(filename, &image.width, &image.height, NULL, STBI_rgb);
@@ -21,7 +23,8 @@ image_t image_create_from_file(const char *filename) {
     return image;
 }
 
-image_t image_create_from_image(image_t image) {
+image_t image_create_from_image(image_t image)
+{
     image_t copy = image;
 
     copy.data = malloc(image.size);
@@ -30,6 +33,7 @@ image_t image_create_from_image(image_t image) {
     return copy;
 }
 
-void image_destroy(image_t image) {
+void image_destroy(image_t image)
+{
     free(image.data);
 }

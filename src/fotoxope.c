@@ -1,10 +1,9 @@
 #include <stdio.h>
 
 #include "image.h"
-#include "transformations.h"
-#include "filters.h"
 
-int main(int argc, char const *argv[]) {
+int main(int argc, char const *argv[])
+{
     image_t image = image_create_from_file(argv[1]);
     image_t image_buffer = image_create_from_image(image);
 
