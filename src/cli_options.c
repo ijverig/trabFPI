@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include "cli_options.h"
+#include "version.h"
 
 void parse_command_options(int argc, char *const argv[],
                            command_t *command, int *parameter)
@@ -10,8 +11,12 @@ void parse_command_options(int argc, char *const argv[],
 
     int option;
     opterr = 0;
-    while ((option = getopt(argc, argv, "F:GQ:")) != -1) {
+    while ((option = getopt(argc, argv, "vF:GQ:")) != -1) {
         switch (option) {
+            case 'v':
+                printf("fotoxope CLI v" FOTOXOPE_CLI_VERSION_STRING "\n");
+                exit(EXIT_SUCCESS);
+                break;
             case 'F':
                 *command = optarg[0] == 'h' ? FLIP_H : FLIP_V;
                 if (optarg[0] != 'h' && optarg[0] != 'v') {

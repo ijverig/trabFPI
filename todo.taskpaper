@@ -15,7 +15,7 @@ v1:
 	- CLI
 		- single transformation @done(2017-11-26)
 		- chaining of transformations
-	- versioning
+	- versioning @done(2017-11-27)
 v2:
 	- histogram for grayscale
 	- filters
