@@ -37,4 +37,8 @@ quantize: build/fotoxope
 	ls -1 test/ | sed 's/.jpg*//' | sed 's/.*/build\/fotoxope -Q 6 test\/&.jpg sandbox\/&.output.quantize.jpg/' | sh
 
 debug: build/fotoxope
-	$(DBG) build/fotoxope test/Underwater_53k.jpg build/output_image.jpg
+	$(DBG) build/fotoxope
+
+ifndef VERBOSE
+.SILENT:
+endif
