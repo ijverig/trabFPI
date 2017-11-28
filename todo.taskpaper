@@ -13,7 +13,7 @@ v1:
 		- display source image and editing buffer
 		- menu actions
 	- CLI
-		- single transformation
+		- single transformation @done(2017-11-26)
 		- chaining of transformations
 	- versioning
 v2:
