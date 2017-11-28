@@ -7,7 +7,7 @@ ifeq ($(OS), Linux)
 	DBG = gdb
 endif
 
-build/fotoxope: src/fotoxope.c src/image.c src/transformations.c src/filters.c src/cli_options.c
+build/fotoxope: src/fotoxope.c src/image.[hc] src/transformations.[hc] src/filters.[hc] src/cli_options.[hc]
 	mkdir -p build
 	$(CC) $(CFLAGS) -o build/fotoxope src/fotoxope.c src/image.c src/transformations.c src/filters.c src/cli_options.c
 
