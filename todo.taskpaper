@@ -15,6 +15,7 @@ v1:
 	- CLI
 		- single transformation
 		- chaining of transformations
+	- versioning
 v2:
 	- histogram for grayscale
 	- filters
@@ -39,3 +40,6 @@ v3:
 v4:
 	- handle bad allocations, missing files (NULL,  *_destroy(NULL), stbi_failure_reason(), STBI_FAILURE_USERMSG)
 	- histogram for color
+	- CLI taking several files at once (batch)
+	- documentation
+	- help command
