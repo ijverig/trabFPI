@@ -1,5 +1,3 @@
-#include <unistd.h>
-
 typedef enum command command_t;
 
 enum command

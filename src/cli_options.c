@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <getopt.h>
 
 #include "cli_options.h"
 #include "version.h"
@@ -7,11 +8,20 @@
 void parse_command_options(int argc, char *const argv[],
                            command_t *command, int *parameter)
 {
+    struct option long_options[] =
+    {
+        {"version",  no_argument,       NULL, 'v'},
+        {"flip",     required_argument, NULL, 'F'},
+        {"gray",     no_argument,       NULL, 'G'},
+        {"quantize", required_argument, NULL, 'Q'},
+        {0}
+    };
+
     *command = NOTHING;
 
     int option;
     opterr = 0;
-    while ((option = getopt(argc, argv, "vF:GQ:")) != -1) {
+    while ((option = getopt_long(argc, argv, "vF:GQ:", long_options, NULL)) != -1) {
         switch (option) {
             case 'v':
                 printf("fotoxope CLI v" FOTOXOPE_CLI_VERSION_STRING "\n");

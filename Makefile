@@ -18,23 +18,27 @@ clean:
 test: version fliph flipv gray quantize
 
 version: build/fotoxope
-	build\/fotoxope -v src/version.h
+	build\/fotoxope -v src/version.h && \
+	build\/fotoxope --version src/version.h
 
-fliph: build/fotoxope
-	cp -r test/ sandbox/
-	ls -1 test/ | sed 's/.jpg*//' | sed 's/.*/build\/fotoxope -F h test\/&.jpg sandbox\/&.output.fliph.jpg/' | sh
+fliph: build/fotoxope sandbox
+	ls -1 test/ | sed 's/.jpg*//' | sed 's/.*/build\/fotoxope -F h test\/&.jpg sandbox\/&.output.fliph.jpg/' | sh && \
+	ls -1 test/ | sed 's/.jpg*//' | sed 's/.*/build\/fotoxope --flip horizontal test\/&.jpg sandbox\/&.output.fliph.jpg/' | sh
 
-flipv: build/fotoxope
-	cp -r test/ sandbox/
-	ls -1 test/ | sed 's/.jpg*//' | sed 's/.*/build\/fotoxope -F v test\/&.jpg sandbox\/&.output.flipv.jpg/' | sh
+flipv: build/fotoxope sandbox
+	ls -1 test/ | sed 's/.jpg*//' | sed 's/.*/build\/fotoxope -F v test\/&.jpg sandbox\/&.output.flipv.jpg/' | sh && \
+	ls -1 test/ | sed 's/.jpg*//' | sed 's/.*/build\/fotoxope --flip vertical test\/&.jpg sandbox\/&.output.flipv.jpg/' | sh
 
-gray: build/fotoxope
-	cp -r test/ sandbox/
-	ls -1 test/ | sed 's/.jpg*//' | sed 's/.*/build\/fotoxope -G test\/&.jpg sandbox\/&.output.gray.jpg/' | sh
+gray: build/fotoxope sandbox
+	ls -1 test/ | sed 's/.jpg*//' | sed 's/.*/build\/fotoxope -G test\/&.jpg sandbox\/&.output.gray.jpg/' | sh && \
+	ls -1 test/ | sed 's/.jpg*//' | sed 's/.*/build\/fotoxope --gray test\/&.jpg sandbox\/&.output.gray.jpg/' | sh
 
-quantize: build/fotoxope
+quantize: build/fotoxope sandbox
+	ls -1 test/ | sed 's/.jpg*//' | sed 's/.*/build\/fotoxope -Q 6 test\/&.jpg sandbox\/&.output.quantize.jpg/' | sh && \
+	ls -1 test/ | sed 's/.jpg*//' | sed 's/.*/build\/fotoxope --quantize 6 test\/&.jpg sandbox\/&.output.quantize.jpg/' | sh
+
+sandbox:
 	cp -r test/ sandbox/
-	ls -1 test/ | sed 's/.jpg*//' | sed 's/.*/build\/fotoxope -Q 6 test\/&.jpg sandbox\/&.output.quantize.jpg/' | sh
 
 debug: build/fotoxope
 	$(DBG) build/fotoxope
