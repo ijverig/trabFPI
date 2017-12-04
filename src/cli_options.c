@@ -6,7 +6,7 @@
 #include "version.h"
 
 void parse_command_options(int argc, char *const argv[],
-                           command_t *command, int *parameter)
+                           command_t command_queue[], int parameter_queue[])
 {
     struct option long_options[] =
     {
@@ -17,41 +17,43 @@ void parse_command_options(int argc, char *const argv[],
         {0}
     };
 
-    *command = NOTHING;
-
-    int option;
+    int option, queue_ind = -1;
     opterr = 0;
     while ((option = getopt_long(argc, argv, "vF:GQ:", long_options, NULL)) != -1) {
-        switch (option) {
-            case 'v':
-                printf("fotoxope CLI v" FOTOXOPE_CLI_VERSION_STRING "\n");
-                exit(EXIT_SUCCESS);
-                break;
-            case 'F':
-                *command = optarg[0] == 'h' ? FLIP_H : FLIP_V;
-                if (optarg[0] != 'h' && optarg[0] != 'v') {
-                    fprintf(stderr, "Error: flip parameter unknown: '%s' (must be horizontal|vertical) \n", optarg);
+        if (queue_ind++ < 15) {
+            switch (option) {
+                case 'v':
+                    printf("fotoxope CLI v" FOTOXOPE_CLI_VERSION_STRING "\n");
+                    exit(EXIT_SUCCESS);
+                    break;
+                case 'F':
+                    command_queue[queue_ind] = optarg[0] == 'h' ? FLIP_H : FLIP_V;
+                    if (optarg[0] != 'h' && optarg[0] != 'v') {
+                        fprintf(stderr, "Error: flip parameter unknown: '%s' (must be horizontal|vertical) \n", optarg);
+                        exit(EXIT_FAILURE);
+                    }
+                    break;
+                case 'G':
+                    command_queue[queue_ind] = GRAY;
+                    break;
+                case 'Q':
+                    command_queue[queue_ind] = QUANTIZE;
+                    parameter_queue[queue_ind] = atoi(optarg);
+                    if (parameter_queue[queue_ind] == 0) {
+                        fprintf(stderr, "Error: quantization parameter unknown: '%s' (must be 2-128) \n", optarg);
+                        exit(EXIT_FAILURE);
+                    }
+                    break;
+                case '?':
+                    if (optopt == 'F' || optopt == 'Q')
+                        fprintf (stderr, "Error: option '-%c' requires an argument \n", optopt);
+                    else
+                        fprintf (stderr, "Error: unknown option '-%c' \n", optopt);
+                default:
                     exit(EXIT_FAILURE);
-                }
-                break;
-            case 'G':
-                *command = GRAY;
-                break;
-            case 'Q':
-                *command = QUANTIZE;
-                *parameter = atoi(optarg);
-                if (*parameter == 0) {
-                    fprintf(stderr, "Error: quantization parameter unknown: '%s' (must be 2-128) \n", optarg);
-                    exit(EXIT_FAILURE);
-                }
-                break;
-            case '?':
-                if (optopt == 'F' || optopt == 'Q')
-                    fprintf (stderr, "Error: option '-%c' requires an argument \n", optopt);
-                else
-                    fprintf (stderr, "Error: unknown option '-%c' \n", optopt);
-            default:
-                exit(EXIT_FAILURE);
+            }
+        } else if (queue_ind == 16) {
+            fprintf(stderr, "Error: maximum of 16 chained commands reached \n");
         }
     }
 }

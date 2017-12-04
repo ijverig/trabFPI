@@ -12,9 +12,9 @@ v1:
 		- display image
 		- display source image and editing buffer
 		- menu actions
-	- CLI
+	- CLI @done(2017-12-04)
 		- single transformation @done(2017-11-26)
-		- chaining of transformations
+		- chaining of transformations @done(2017-12-04)
 	- versioning @done(2017-11-27)
 v2:
 	- histogram for grayscale

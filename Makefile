@@ -15,7 +15,7 @@ build/fotoxope: src/fotoxope.c src/image.[hc] src/transformations.[hc] src/filte
 clean:
 	rm -rf build sandbox
 
-test: version fliph flipv gray quantize
+test: version fliph flipv gray quantize commqueue
 
 version: build/fotoxope
 	build\/fotoxope -v src/version.h && \
@@ -36,6 +36,11 @@ gray: build/fotoxope sandbox
 quantize: build/fotoxope sandbox
 	ls -1 test/ | sed 's/.jpg*//' | sed 's/.*/build\/fotoxope -Q 6 test\/&.jpg sandbox\/&.output.quantize.jpg/' | sh && \
 	ls -1 test/ | sed 's/.jpg*//' | sed 's/.*/build\/fotoxope --quantize 6 test\/&.jpg sandbox\/&.output.quantize.jpg/' | sh
+
+commqueue: build/fotoxope sandbox
+	build\/fotoxope -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G test/Underwater_53k.jpg sandbox/-void.jpg    && \
+	build\/fotoxope -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G test/Underwater_53k.jpg sandbox/-void.jpg && \
+	build\/fotoxope -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G test/Underwater_53k.jpg sandbox/-void.jpg
 
 sandbox:
 	cp -r test/ sandbox/
