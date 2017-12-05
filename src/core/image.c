@@ -7,6 +7,11 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "../../lib/stb_image_write.h"
 
+void image_flip_vertically_on_load()
+{
+    stbi_set_flip_vertically_on_load(1);
+}
+
 void image_save(image_t image, const char *filename)
 {
     stbi_write_jpg(filename, image.width, image.height, STBI_rgb, image.data, 100);

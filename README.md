@@ -1,6 +1,6 @@
-Running on macOS
-================
+Running
+=======
 
 1. `make clean`
 2. `make`
-3. `make test`
+3. `make run`

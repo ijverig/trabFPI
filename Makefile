@@ -3,8 +3,10 @@ OS := $(shell uname)
 CC     = cc
 DBG    = lldb
 CFLAGS = -std=c99 -g -Wall -Wno-deprecated-declarations
+LDLIBS = -framework GLUT -framework OpenGL
 ifeq ($(OS), Linux)
-	DBG = gdb
+	LDLIBS = -lm -lglut -lGL
+	DBG    = gdb
 endif
 
 CLISRC   = $(wildcard src/CLI/*.c)
@@ -12,17 +14,26 @@ CLIHEAD  = $(CLISRC:.c=.h)
 CORESRC  = $(wildcard src/core/*.c)
 COREHEAD = $(CORESRC:.c=.h)
 
-build/fotoxope: build/fotoxopeCLI
+build/fotoxope: build/fotoxopeGUI build/fotoxopeCLI
+
+build/fotoxopeGUI: src/fotoxopeGUI.c $(CORESRC)
+	mkdir -p build
+	$(CC) $(CFLAGS) -o $@ $^ $(LDLIBS)
 
 build/fotoxopeCLI: src/fotoxopeCLI.c $(CLISRC) $(CORESRC)
 	mkdir -p build
 	$(CC) $(CFLAGS) -o $@ $^
 
+src/fotoxopeGUI.c: $(COREHEAD)
+
 src/fotoxopeCLI.c: $(CLIHEAD) $(COREHEAD)
 
-.PHONY: clean test
+.PHONY: clean run
 clean:
 	rm -rf build sandbox
+
+run: build/fotoxopeGUI
+	build\/fotoxopeGUI test/Underwater_53k.jpg
 
 test: version fliph flipv gray quantize commqueue
 
@@ -54,7 +65,10 @@ commqueue: build/fotoxopeCLI sandbox
 sandbox:
 	cp -r test/ sandbox/
 
-debug: build/fotoxopeCLI
+debug: build/fotoxopeGUI
+	$(DBG) build/fotoxopeGUI
+
+debugCLI: build/fotoxopeCLI
 	$(DBG) build/fotoxopeCLI
 
 ifndef VERBOSE

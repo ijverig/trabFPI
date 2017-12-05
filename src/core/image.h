@@ -23,6 +23,7 @@ struct image
     byte *data;
 };
 
+void image_flip_vertically_on_load();
 void image_save(image_t image, const char *filename);
 image_t image_create_from_file(const char *filename);
 image_t image_create_from_image(image_t image);
