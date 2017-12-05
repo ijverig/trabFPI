@@ -3,7 +3,7 @@
 #include <getopt.h>
 
 #include "cli_options.h"
-#include "version.h"
+#include "../core/version.h"
 
 void parse_command_options(int argc, char *const argv[],
                            command_t command_queue[], int parameter_queue[])

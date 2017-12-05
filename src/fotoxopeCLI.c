@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "cli_options.h"
-#include "image.h"
+#include "CLI/cli_options.h"
+#include "core/image.h"
 
 int main(int argc, char *const argv[])
 {
