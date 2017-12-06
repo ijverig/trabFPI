@@ -10,23 +10,19 @@ ifeq ($(OS), Linux)
 endif
 
 CLISRC   = $(wildcard src/CLI/*.c)
-CLIHEAD  = $(CLISRC:.c=.h)
+CLIHEAD  = $(wildcard src/CLI/*.h)
 CORESRC  = $(wildcard src/core/*.c)
-COREHEAD = $(CORESRC:.c=.h)
+COREHEAD = $(wildcard src/core/*.h)
 
 build/fotoxope: build/fotoxopeGUI build/fotoxopeCLI
 
-build/fotoxopeGUI: src/fotoxopeGUI.c $(CORESRC)
+build/fotoxopeGUI: src/fotoxopeGUI.c $(CORESRC) $(COREHEAD)
 	mkdir -p build
-	$(CC) $(CFLAGS) -o $@ $^ $(LDLIBS)
+	$(CC) $(CFLAGS) $< $(CORESRC) $(LDLIBS) -o $@
 
-build/fotoxopeCLI: src/fotoxopeCLI.c $(CLISRC) $(CORESRC)
+build/fotoxopeCLI: src/fotoxopeCLI.c $(CLISRC) $(CORESRC) $(CLIHEAD) $(COREHEAD)
 	mkdir -p build
-	$(CC) $(CFLAGS) -o $@ $^
-
-src/fotoxopeGUI.c: $(COREHEAD)
-
-src/fotoxopeCLI.c: $(CLIHEAD) $(COREHEAD)
+	$(CC) $(CFLAGS) $< $(CLISRC) $(CORESRC) $(LDLIBS) -o $@
 
 .PHONY: clean run
 clean:
