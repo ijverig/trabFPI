@@ -10,7 +10,7 @@ v1:
 		- quantization @done(2017-11-21)
 	- GUI
 		- display image @done(2017-12-05)
-		- display source image and editing buffer
+		- display source image and editing buffer @done(2017-12-06)
 		- menu actions
 	- CLI @done(2017-12-04)
 		- single transformation @done(2017-11-26)

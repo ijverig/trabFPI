@@ -9,6 +9,8 @@ ifeq ($(OS), Linux)
 	DBG    = gdb
 endif
 
+GUISRC   = $(wildcard src/GUI/*.c)
+GUIHEAD  = $(wildcard src/GUI/*.h)
 CLISRC   = $(wildcard src/CLI/*.c)
 CLIHEAD  = $(wildcard src/CLI/*.h)
 CORESRC  = $(wildcard src/core/*.c)
@@ -16,9 +18,9 @@ COREHEAD = $(wildcard src/core/*.h)
 
 build/fotoxope: build/fotoxopeGUI build/fotoxopeCLI
 
-build/fotoxopeGUI: src/fotoxopeGUI.c $(CORESRC) $(COREHEAD)
+build/fotoxopeGUI: src/fotoxopeGUI.c $(GUISRC) $(CORESRC) $(GUIHEAD) $(COREHEAD)
 	mkdir -p build
-	$(CC) $(CFLAGS) $< $(CORESRC) $(LDLIBS) -o $@
+	$(CC) $(CFLAGS) $< $(GUISRC) $(CORESRC) $(LDLIBS) -o $@
 
 build/fotoxopeCLI: src/fotoxopeCLI.c $(CLISRC) $(CORESRC) $(CLIHEAD) $(COREHEAD)
 	mkdir -p build
