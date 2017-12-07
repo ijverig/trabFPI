@@ -31,7 +31,7 @@ clean:
 	rm -rf build sandbox
 
 run: build/fotoxopeGUI
-	build\/fotoxopeGUI test/Underwater_53k.jpg
+	build\/fotoxopeGUI test/underwater.jpg
 
 test: version fliph flipv gray quantize commqueue
 
@@ -56,9 +56,9 @@ quantize: build/fotoxopeCLI sandbox
 	ls -1 test/ | sed 's/.jpg*//' | sed 's/.*/build\/fotoxopeCLI --quantize 6 test\/&.jpg sandbox\/&.output.quantize.jpg/' | sh
 
 commqueue: build/fotoxopeCLI sandbox
-	build\/fotoxopeCLI -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G test/Underwater_53k.jpg sandbox/-void.jpg	&& \
-	build\/fotoxopeCLI -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G test/Underwater_53k.jpg sandbox/-void.jpg && \
-	build\/fotoxopeCLI -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G test/Underwater_53k.jpg sandbox/-void.jpg
+	build\/fotoxopeCLI -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G test/underwater.jpg sandbox/-void.jpg	&& \
+	build\/fotoxopeCLI -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G test/underwater.jpg sandbox/-void.jpg && \
+	build\/fotoxopeCLI -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G -G test/underwater.jpg sandbox/-void.jpg
 
 sandbox:
 	cp -r test/ sandbox/
