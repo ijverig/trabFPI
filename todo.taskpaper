@@ -12,6 +12,12 @@ v1:
 		- display image @done(2017-12-05)
 		- display source image and editing buffer @done(2017-12-06)
 		- menu actions
+			- open
+			- save
+			- flipping
+			- grayscale
+			- actions button
+			- quantization
 	- CLI @done(2017-12-04)
 		- single transformation @done(2017-11-26)
 		- chaining of transformations @done(2017-12-04)
@@ -43,3 +49,7 @@ v4:
 	- CLI taking several files at once (batch)
 	- documentation
 	- help command
+	- splashscreen
+	- fullscreen
+	- GUI version/about
+	- open/save dialog box
