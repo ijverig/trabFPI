@@ -25,7 +25,7 @@ void filter_grayscale(image_t *image)
 byte quantize(byte *pixel, byte levels)
 {
     byte level = (float)*pixel/256 * levels;
-    return level * 256/levels;
+    return level * 256/levels + 128/levels; // level * 256/levels + 1/2 * 256/levels
 }
 
 
