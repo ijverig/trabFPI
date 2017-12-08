@@ -1,4 +1,4 @@
-v1:
+v1: @done(2017-12-08)
 	- image file I/O @done(2017-11-13)
 	- transformations @done(2017-11-20)
 		- horizontal flipping @done(2017-11-16)
@@ -25,15 +25,16 @@ v1:
 		- chaining of transformations @done(2017-12-04)
 	- versioning @done(2017-11-27)
 v2:
-	- histogram for grayscale
 	- filters
 		- brightness
 		- contrast
 		- negative
-		- histogram equalization
+	- histogram
+		- show
+		- equalization
 			- through luminance
 			- through L*a*b
-		- histogram matching
+		- matching
 v3:
 	- transformations
 		- zooming
@@ -45,7 +46,8 @@ v3:
 	- convolution filters
 		- 3x3 arbitrary kernel
 		- popular kernels
-v4:
+
+future:
 	- handle bad allocations, missing files (NULL,  *_destroy(NULL), stbi_failure_reason(), STBI_FAILURE_USERMSG)
 	- histogram for color
 	- CLI taking several files at once (batch)

@@ -1,6 +1,6 @@
 Running
 =======
 
-1. `make clean`
-2. `make`
-3. `make run`
+1. `make run`
+
+Right-button click for commands menu.
