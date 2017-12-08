@@ -1,3 +1,6 @@
+#ifndef SESSION_HEADER
+#define SESSION_HEADER
+
 #include "../core/image.h"
 
 typedef struct session session_t;
@@ -26,5 +29,8 @@ struct session
     struct session_window window;
 };
 
-void session_init(session_t *session, char *input_filename);
-void session_compute_image_positions(session_t *session);
+void session_init(char *input_filename);
+
+session_t session;
+
+#endif

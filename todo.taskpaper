@@ -12,11 +12,12 @@ v1:
 		- display image @done(2017-12-05)
 		- display source image and editing buffer @done(2017-12-06)
 		- menu actions
+			- separate interface stuff @done(2017-12-07)
+			- make session global @done(2017-12-07)
 			- open
 			- save
 			- flipping
 			- grayscale
-			- actions button
 			- quantization
 	- CLI @done(2017-12-04)
 		- single transformation @done(2017-11-26)
