@@ -19,6 +19,7 @@ v1:
 			- flipping
 			- grayscale
 			- quantization
+			- exit @done(2017-12-07)
 	- CLI @done(2017-12-04)
 		- single transformation @done(2017-11-26)
 		- chaining of transformations @done(2017-12-04)

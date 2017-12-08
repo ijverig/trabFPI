@@ -6,6 +6,7 @@
 
 #include "GUI/session.h"
 #include "GUI/interface.h"
+#include "GUI/interaction.h"
 
 int main(int argc, char *argv[])
 {
@@ -13,6 +14,7 @@ int main(int argc, char *argv[])
 
     session_init(argv[1]);
     interface_init();
+    interaction_init();
 
     glutMainLoop();
 }
