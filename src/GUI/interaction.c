@@ -17,6 +17,9 @@ void handle_selection(int option)
     switch (option) {
         case OPTION_NOTHING:
             break;
+        case OPTION_GRAYSCALE:
+            filter_grayscale(&session.buffer.image);
+            break;
         case OPTION_EXIT:
             exit(EXIT_SUCCESS);
             break;
@@ -30,7 +33,11 @@ void handle_selection(int option)
 
 void create_menu()
 {
+    char *const SEPARATOR = "————————";
+
     int main_menu = glutCreateMenu(handle_selection);
+    glutAddMenuEntry("Grayscale (g)", OPTION_GRAYSCALE);
+    glutAddMenuEntry(SEPARATOR, OPTION_NOTHING);
     glutAddMenuEntry("Exit (e)", OPTION_EXIT);
 
     glutSetMenu(main_menu);
@@ -40,6 +47,9 @@ void create_menu()
 void handle_key_press(unsigned char key, int _, int __)
 {
     switch (key) {
+        case 'g':
+            handle_selection(OPTION_GRAYSCALE);
+            break;
         case 'e':
             handle_selection(OPTION_EXIT);
             break;

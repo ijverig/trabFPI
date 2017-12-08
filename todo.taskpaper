@@ -17,7 +17,7 @@ v1:
 			- open
 			- save
 			- flipping
-			- grayscale
+			- grayscale @done(2017-12-07)
 			- quantization
 			- exit @done(2017-12-07)
 	- CLI @done(2017-12-04)
