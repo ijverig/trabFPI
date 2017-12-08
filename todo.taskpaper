@@ -16,7 +16,7 @@ v1:
 			- make session global @done(2017-12-07)
 			- open
 			- save
-			- flipping
+			- flipping @done(2017-12-07)
 			- grayscale @done(2017-12-07)
 			- quantization
 			- exit @done(2017-12-07)
