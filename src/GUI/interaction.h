@@ -4,6 +4,9 @@ enum MENU_OPTION
 {
     OPTION_NOTHING,
 
+    OPTION_OPEN,
+    OPTION_SAVE,
+
     OPTION_FLIP_H,
     OPTION_FLIP_V,
 

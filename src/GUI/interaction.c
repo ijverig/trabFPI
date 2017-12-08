@@ -12,10 +12,41 @@
 
 extern session_t session;
 
+void file_dialog(char *dialog, char **io_filename)
+{
+    char filename[500];
+    printf("%s", dialog);
+    fgets(filename, 500, stdin);
+    filename[strcspn(filename, "\n")] = '\0';
+    *io_filename = strdup(filename);
+}
+
+void open_dialog()
+{
+    file_dialog("Image file to open: ", &session.input_filename);
+}
+
+void save_dialog()
+{
+    file_dialog("Image file to save: ", &session.output_filename);
+}
+
 void handle_selection(int option)
 {
     switch (option) {
         case OPTION_NOTHING:
+            break;
+        case OPTION_OPEN:
+            open_dialog();
+            image_destroy(session.source.image);
+            image_destroy(session.buffer.image);
+            session_reload();
+            break;
+        case OPTION_SAVE:
+            save_dialog();
+            transform_flip_v(&session.buffer.image);
+            image_save(session.buffer.image, session.output_filename);
+            transform_flip_v(&session.buffer.image);
             break;
         case OPTION_FLIP_H:
             transform_flip_h(&session.buffer.image);
@@ -46,6 +77,9 @@ void create_menu()
     glutAddMenuEntry("Vertically (v)", OPTION_FLIP_V);
 
     int main_menu = glutCreateMenu(handle_selection);
+    glutAddMenuEntry("Open (o)", OPTION_OPEN);
+    glutAddMenuEntry("Save (s)", OPTION_SAVE);
+    glutAddMenuEntry(SEPARATOR, OPTION_NOTHING);
     glutAddSubMenu("Flip", flip_menu);
     glutAddMenuEntry(SEPARATOR, OPTION_NOTHING);
     glutAddMenuEntry("Grayscale (g)", OPTION_GRAYSCALE);
@@ -59,6 +93,12 @@ void create_menu()
 void handle_key_press(unsigned char key, int _, int __)
 {
     switch (key) {
+        case 'o':
+            handle_selection(OPTION_OPEN);
+            break;
+        case 's':
+            handle_selection(OPTION_SAVE);
+            break;
         case 'h':
             handle_selection(OPTION_FLIP_H);
             break;

@@ -14,8 +14,8 @@ v1:
 		- menu actions
 			- separate interface stuff @done(2017-12-07)
 			- make session global @done(2017-12-07)
-			- open
-			- save
+			- open @done(2017-12-07)
+			- save @done(2017-12-07)
 			- flipping @done(2017-12-07)
 			- grayscale @done(2017-12-07)
 			- quantization

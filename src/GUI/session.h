@@ -24,12 +24,13 @@ struct session_window
 
 struct session
 {
-    char *input_filename;
+    char *input_filename, *output_filename;
     struct image_session source, buffer;
     struct session_window window;
 };
 
 void session_init(char *input_filename);
+void session_reload();
 
 session_t session;
 
