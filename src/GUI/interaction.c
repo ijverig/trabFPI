@@ -31,6 +31,12 @@ void save_dialog()
     file_dialog("Image file to save: ", &session.output_filename);
 }
 
+void value_dialog(char *dialog, int *value)
+{
+    printf("%s", dialog);
+    scanf("%d", value);
+}
+
 void handle_selection(int option)
 {
     switch (option) {
@@ -56,6 +62,13 @@ void handle_selection(int option)
             break;
         case OPTION_GRAYSCALE:
             filter_grayscale(&session.buffer.image);
+            break;
+        case OPTION_QUANTIZE:
+            {
+                int levels;
+                value_dialog("Number of levels: ", &levels);
+                filter_quantize(&session.buffer.image, levels);
+            }
             break;
         case OPTION_EXIT:
             exit(EXIT_SUCCESS);
@@ -83,6 +96,7 @@ void create_menu()
     glutAddSubMenu("Flip", flip_menu);
     glutAddMenuEntry(SEPARATOR, OPTION_NOTHING);
     glutAddMenuEntry("Grayscale (g)", OPTION_GRAYSCALE);
+    glutAddMenuEntry("Quantize (q)", OPTION_QUANTIZE);
     glutAddMenuEntry(SEPARATOR, OPTION_NOTHING);
     glutAddMenuEntry("Exit (e)", OPTION_EXIT);
 
@@ -107,6 +121,9 @@ void handle_key_press(unsigned char key, int _, int __)
             break;
         case 'g':
             handle_selection(OPTION_GRAYSCALE);
+            break;
+        case 'q':
+            handle_selection(OPTION_QUANTIZE);
             break;
         case 'e':
             handle_selection(OPTION_EXIT);
