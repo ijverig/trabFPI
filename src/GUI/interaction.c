@@ -35,6 +35,7 @@ void value_dialog(char *dialog, int *value)
 {
     printf("%s", dialog);
     scanf("%d", value);
+    getc(stdin); // eats \n
 }
 
 void handle_selection(int option)
