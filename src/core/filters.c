@@ -1,12 +1,29 @@
 #include "filters.h"
 
-void filter(image_t *image,
+void filter(void (*component_function)(byte *, byte (*)(byte *, byte), byte),
+            image_t *image,
             byte (*filter_function)(byte *, byte),
             byte info)
 {
     for (int i = 0; i < image->size; i += 3) {
-        image->data[i + R] = image->data[i + G] = image->data[i + B] = filter_function(&image->data[i], info);
+        component_function(&image->data[i], filter_function, info);
     }
+}
+
+void each_pixel(byte *pixel,
+            byte (*filter_function)(byte *, byte),
+            byte info)
+{
+    pixel[R] = pixel[G] = pixel[B] = filter_function(pixel, info);
+}
+
+void each_channel(byte *pixel,
+            byte (*filter_function)(byte *, byte),
+            byte info)
+{
+    pixel[R] = filter_function(&pixel[R], info);
+    pixel[G] = filter_function(&pixel[G], info);
+    pixel[B] = filter_function(&pixel[B], info);
 }
 
 byte luminance(byte *pixel, byte _)
@@ -19,7 +36,7 @@ byte luminance(byte *pixel, byte _)
 
 void filter_grayscale(image_t *image)
 {
-    filter(image, luminance, 0);
+    filter(each_pixel, image, luminance, 0);
 }
 
 byte quantize(byte *pixel, byte levels)
@@ -31,5 +48,5 @@ byte quantize(byte *pixel, byte levels)
 
 void filter_quantize(image_t *image, byte levels)
 {
-    filter(image, quantize, levels);
+    filter(each_channel, image, quantize, levels);
 }
