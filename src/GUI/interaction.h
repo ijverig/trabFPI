@@ -7,6 +7,8 @@ enum MENU_OPTION
     OPTION_OPEN,
     OPTION_SAVE,
 
+    OPTION_HISTOGRAM,
+    
     OPTION_FLIP_H,
     OPTION_FLIP_V,
 

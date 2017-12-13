@@ -6,14 +6,34 @@
   #include <GL/glut.h>
 #endif
 
+#include "../core/histogram.h"
+
 extern session_t session;
 
 void draw_images(image_session_t *image_session)
 {
     glRasterPos2i(image_session->positions.center_x - image_session->image.width/2,
-                  image_session->positions.center_y - image_session->image.height/2);
+                  image_session->positions.center_y - image_session->image.height/2 + .57*session.histogram.height);
     glDrawPixels(image_session->image.width, image_session->image.height,
                  GL_RGB, GL_UNSIGNED_BYTE, image_session->image.data);
+}
+
+void draw_histogram(image_session_t *image_session)
+{
+    int histogram[256];
+    histogram_compute(histogram, &image_session->image);
+    histogram_normalize(histogram);
+
+    byte histogram_plot[session.histogram.height][session.histogram.width];
+    for (int row = 0; row < session.histogram.height; row++) {
+        for (int col = 0; col < 256; col++) {
+            histogram_plot[row][col] = histogram[col]-- > 0 ? 225 : 12;
+        }
+    }
+
+    glRasterPos2i(image_session->positions.center_x - session.histogram.width/2,
+                  image_session->positions.center_y - image_session->image.height/2 - .57*session.histogram.height);
+    glDrawPixels(session.histogram.width, session.histogram.height, GL_ALPHA, GL_UNSIGNED_BYTE, histogram_plot);
 }
 
 void display()
@@ -22,6 +42,11 @@ void display()
 
     draw_images(&session.source);
     draw_images(&session.buffer);
+
+    if (session.histogram.is_visible) {
+        draw_histogram(&session.source);
+        draw_histogram(&session.buffer);
+    }
 
     glutSwapBuffers();
 }
@@ -60,6 +85,10 @@ void create_window()
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
 
     glutCreateWindow("Fotoxope");
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
     glutDisplayFunc(display);
     glutReshapeFunc(reshape);

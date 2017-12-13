@@ -30,7 +30,7 @@ v2:
 		- contrast
 		- negative
 	- histogram
-		- show
+		- show @done(2017-12-12)
 		- equalization
 			- through luminance
 			- through L*a*b

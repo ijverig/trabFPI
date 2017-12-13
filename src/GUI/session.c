@@ -4,6 +4,9 @@ extern session_t session;
 
 void session_init(char *input_filename)
 {
+    session.histogram.is_visible = false;
+    session.histogram.width = session.histogram.height = 0;
+
     session.input_filename = session.output_filename = input_filename;
 
     image_flip_vertically_on_load();

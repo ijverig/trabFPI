@@ -1,6 +1,8 @@
 #ifndef SESSION_HEADER
 #define SESSION_HEADER
 
+#include <stdbool.h>
+
 #include "../core/image.h"
 
 typedef struct session session_t;
@@ -22,11 +24,18 @@ struct session_window
     int width, height;
 };
 
+struct histogram
+{
+    int width, height;
+    bool is_visible;
+};
+
 struct session
 {
     char *input_filename, *output_filename;
     struct image_session source, buffer;
     struct session_window window;
+    struct histogram histogram;
 };
 
 void session_init(char *input_filename);

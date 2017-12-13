@@ -43,6 +43,7 @@ void handle_selection(int option)
     switch (option) {
         case OPTION_NOTHING:
             break;
+
         case OPTION_OPEN:
             open_dialog();
             image_destroy(session.source.image);
@@ -55,12 +56,19 @@ void handle_selection(int option)
             image_save(session.buffer.image, session.output_filename);
             transform_flip_v(&session.buffer.image);
             break;
+
+        case OPTION_HISTOGRAM:
+            session.histogram.width = session.histogram.height = session.histogram.is_visible ? 0 : 256;
+            session.histogram.is_visible = !session.histogram.is_visible;
+            break;
+
         case OPTION_FLIP_H:
             transform_flip_h(&session.buffer.image);
             break;
         case OPTION_FLIP_V:
             transform_flip_v(&session.buffer.image);
             break;
+
         case OPTION_GRAYSCALE:
             filter_grayscale(&session.buffer.image);
             break;
@@ -71,9 +79,11 @@ void handle_selection(int option)
                 filter_quantize(&session.buffer.image, levels);
             }
             break;
+
         case OPTION_EXIT:
             exit(EXIT_SUCCESS);
             break;
+
         default:
             fprintf(stderr, "Error: something bad happened. \n");
             exit(EXIT_FAILURE);
@@ -93,6 +103,8 @@ void create_menu()
     int main_menu = glutCreateMenu(handle_selection);
     glutAddMenuEntry("Open (o)", OPTION_OPEN);
     glutAddMenuEntry("Save (s)", OPTION_SAVE);
+    glutAddMenuEntry(SEPARATOR, OPTION_NOTHING);
+    glutAddMenuEntry("Histogram (H)", OPTION_HISTOGRAM);
     glutAddMenuEntry(SEPARATOR, OPTION_NOTHING);
     glutAddSubMenu("Flip", flip_menu);
     glutAddMenuEntry(SEPARATOR, OPTION_NOTHING);
@@ -114,21 +126,29 @@ void handle_key_press(unsigned char key, int _, int __)
         case 's':
             handle_selection(OPTION_SAVE);
             break;
+
+        case 'H':
+            handle_selection(OPTION_HISTOGRAM);
+            break;
+
         case 'h':
             handle_selection(OPTION_FLIP_H);
             break;
         case 'v':
             handle_selection(OPTION_FLIP_V);
             break;
+
         case 'g':
             handle_selection(OPTION_GRAYSCALE);
             break;
         case 'q':
             handle_selection(OPTION_QUANTIZE);
             break;
+
         case 'e':
             handle_selection(OPTION_EXIT);
             break;
+
         default:
             ;
     }
