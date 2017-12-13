@@ -50,3 +50,13 @@ void filter_quantize(image_t *image, byte levels)
 {
     filter(each_channel, image, quantize, levels);
 }
+
+byte negative(byte *value, byte _)
+{
+    return 255 - *value;
+}
+
+void filter_negative(image_t *image)
+{
+    filter(each_channel, image, negative, 0);
+}

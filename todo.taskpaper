@@ -28,7 +28,7 @@ v2:
 	- filters
 		- brightness
 		- contrast
-		- negative
+		- negative @done(2017-12-13)
 	- histogram
 		- show @done(2017-12-12)
 		- equalization

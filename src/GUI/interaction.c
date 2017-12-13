@@ -79,6 +79,9 @@ void handle_selection(int option)
                 filter_quantize(&session.buffer.image, levels);
             }
             break;
+        case OPTION_NEGATIVE:
+            filter_negative(&session.buffer.image);
+            break;
 
         case OPTION_EXIT:
             exit(EXIT_SUCCESS);
@@ -110,6 +113,7 @@ void create_menu()
     glutAddMenuEntry(SEPARATOR, OPTION_NOTHING);
     glutAddMenuEntry("Grayscale (g)", OPTION_GRAYSCALE);
     glutAddMenuEntry("Quantize (q)", OPTION_QUANTIZE);
+    glutAddMenuEntry("Negative (n)", OPTION_NEGATIVE);
     glutAddMenuEntry(SEPARATOR, OPTION_NOTHING);
     glutAddMenuEntry("Exit (e)", OPTION_EXIT);
 
@@ -143,6 +147,9 @@ void handle_key_press(unsigned char key, int _, int __)
             break;
         case 'q':
             handle_selection(OPTION_QUANTIZE);
+            break;
+        case 'n':
+            handle_selection(OPTION_NEGATIVE);
             break;
 
         case 'e':
