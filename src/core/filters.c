@@ -49,15 +49,20 @@ byte quantize(byte *pixel, float levels)
     byte level = (float)*pixel/256 * levels;
     return level * 256/levels + 128/levels; // level * 256/levels + 1/2 * 256/levels
 }
-
+9
 void filter_quantize(image_t *image, float levels)
 {
     filter(each_channel, image, quantize, levels);
 }
 
+byte linear_transformation(byte x, float a, float b)
+{
+    return clip_to_ubyte(a * x + b);
+}
+
 byte contrast(byte *value, float gain)
 {
-    return clip_to_ubyte(gain * *value);
+    return linear_transformation(*value, gain, 0);
 }
 
 void filter_contrast(image_t *image, float gain)
@@ -67,7 +72,7 @@ void filter_contrast(image_t *image, float gain)
 
 byte negative(byte *value, float _)
 {
-    return 255 - *value;
+    return linear_transformation(*value, -1, 255);
 }
 
 void filter_negative(image_t *image)
