@@ -31,10 +31,10 @@ void save_dialog()
     file_dialog("Image file to save: ", &session.output_filename);
 }
 
-void value_dialog(char *dialog, int *value)
+void value_dialog(char *dialog, float *value)
 {
     printf("%s", dialog);
-    scanf("%d", value);
+    scanf("%f", value);
     getc(stdin); // eats \n
 }
 
@@ -74,9 +74,16 @@ void handle_selection(int option)
             break;
         case OPTION_QUANTIZE:
             {
-                int levels;
+                float levels;
                 value_dialog("Number of levels: ", &levels);
                 filter_quantize(&session.buffer.image, levels);
+            }
+            break;
+        case OPTION_CONTRAST:
+            {
+                float gain;
+                value_dialog("Gain: ", &gain);
+                filter_contrast(&session.buffer.image, gain);
             }
             break;
         case OPTION_NEGATIVE:
@@ -113,6 +120,7 @@ void create_menu()
     glutAddMenuEntry(SEPARATOR, OPTION_NOTHING);
     glutAddMenuEntry("Grayscale (g)", OPTION_GRAYSCALE);
     glutAddMenuEntry("Quantize (q)", OPTION_QUANTIZE);
+    glutAddMenuEntry("Contrast (c)", OPTION_CONTRAST);
     glutAddMenuEntry("Negative (n)", OPTION_NEGATIVE);
     glutAddMenuEntry(SEPARATOR, OPTION_NOTHING);
     glutAddMenuEntry("Exit (e)", OPTION_EXIT);
@@ -147,6 +155,9 @@ void handle_key_press(unsigned char key, int _, int __)
             break;
         case 'q':
             handle_selection(OPTION_QUANTIZE);
+            break;
+        case 'c':
+            handle_selection(OPTION_CONTRAST);
             break;
         case 'n':
             handle_selection(OPTION_NEGATIVE);
