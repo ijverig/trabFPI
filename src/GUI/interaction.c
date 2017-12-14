@@ -79,6 +79,13 @@ void handle_selection(int option)
                 filter_quantize(&session.buffer.image, levels);
             }
             break;
+        case OPTION_BRIGHTNESS:
+            {
+                float bias;
+                value_dialog("Bias: ", &bias);
+                filter_brightness(&session.buffer.image, bias);
+            }
+            break;
         case OPTION_CONTRAST:
             {
                 float gain;
@@ -120,6 +127,7 @@ void create_menu()
     glutAddMenuEntry(SEPARATOR, OPTION_NOTHING);
     glutAddMenuEntry("Grayscale (g)", OPTION_GRAYSCALE);
     glutAddMenuEntry("Quantize (q)", OPTION_QUANTIZE);
+    glutAddMenuEntry("Brightness (b)", OPTION_BRIGHTNESS);
     glutAddMenuEntry("Contrast (c)", OPTION_CONTRAST);
     glutAddMenuEntry("Negative (n)", OPTION_NEGATIVE);
     glutAddMenuEntry(SEPARATOR, OPTION_NOTHING);
@@ -155,6 +163,9 @@ void handle_key_press(unsigned char key, int _, int __)
             break;
         case 'q':
             handle_selection(OPTION_QUANTIZE);
+            break;
+        case 'b':
+            handle_selection(OPTION_BRIGHTNESS);
             break;
         case 'c':
             handle_selection(OPTION_CONTRAST);

@@ -60,6 +60,16 @@ byte linear_transformation(byte x, float a, float b)
     return clip_to_ubyte(a * x + b);
 }
 
+byte brightness(byte *value, float bias)
+{
+    return linear_transformation(*value, 1, bias);
+}
+
+void filter_brightness(image_t *image, float bias)
+{
+    filter(each_channel, image, brightness, bias);
+}
+
 byte contrast(byte *value, float gain)
 {
     return linear_transformation(*value, gain, 0);

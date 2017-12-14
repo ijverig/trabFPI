@@ -25,8 +25,8 @@ v1: @done(2017-12-08)
 		- chaining of transformations @done(2017-12-04)
 	- versioning @done(2017-11-27)
 v2:
-	- filters
-		- brightness
+	- filters @done(2017-12-14)
+		- brightness @done(2017-12-14)
 		- contrast @done(2017-12-14)
 		- negative @done(2017-12-13)
 	- histogram
