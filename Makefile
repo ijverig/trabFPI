@@ -2,7 +2,7 @@ OS := $(shell uname)
 
 CC     = cc
 DBG    = lldb
-CFLAGS = -std=c99 -g -Wall -Wno-deprecated-declarations
+CFLAGS = -std=c99 -g -Wall -Werror -Wno-deprecated-declarations
 LDLIBS = -framework GLUT -framework OpenGL
 ifeq ($(OS), Linux)
 	LDLIBS = -lm -lglut -lGL
